@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat com IA</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #chat-container { max-width: 600px; margin: auto; }
+        #response { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+        button { padding: 8px 16px; }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Converse com a IA</h1>
+        <input type="text" id="message" placeholder="Digite sua pergunta">
+        <button onclick="sendMessage()">Enviar</button>
+        <h2>Adicionar Conhecimento</h2>
+        <textarea id="knowledge" placeholder="Digite novo conhecimento"></textarea>
+        <button onclick="addKnowledge()">Adicionar</button>
+        <div id="response"></div>
+    </div>
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById('message').value;
+            const response = await fetch(`/ai/chat?message=${encodeURIComponent(message)}`, { method: 'POST' });
+            const text = await response.text();
+            document.getElementById('response').innerText = text;
+        }
+
+        async function addKnowledge() {
+            const knowledge = document.getElementById('knowledge').value;
+            await fetch(`/ai/knowledge?text=${encodeURIComponent(knowledge)}`, { method: 'POST' });
+            document.getElementById('knowledge').value = '';
+            alert('Conhecimento adicionado!');
+        }
+    </script>
+</body>
+</html>
