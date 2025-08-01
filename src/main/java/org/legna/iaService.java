@@ -1,13 +1,14 @@
 package org.legna;
-import java.io.IOException;
 
-import dev.langchain4j.data.document.Document;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.service.AiServices;
+import dev.langchain4j.service.SystemMessage;
 import jakarta.inject.Inject;
 import jakarta.enterprise.context.ApplicationScoped;
+import java.io.IOException;
 
 interface ConversationalAI {
+    @SystemMessage("Você é um assistente de IA que responde com base no conhecimento fornecido. Conhecimento: {{knowledge}}")
     String chat(String userMessage);
 }
 
@@ -17,11 +18,11 @@ public class iaService {
 
     @Inject
     public iaService(ChatLanguageModel chatModel, conhecimentoService conhecimentoService) throws IOException {
-        String knowledge =  conhecimentoService.readKnowledge();
-        Document document = new Document(knowledge);
-        assistant = iaService.builder(ConversationalAI.class)
+        String knowledge = conhecimentoService.readKnowledge();
+
+        assistant = AiServices.builder(ConversationalAI.class)
             .chatLanguageModel(chatModel)
-            .contentRetriever(() -> document)
+            .systemMessageProvider((memoryId) -> knowledge)
             .build();
     }
 

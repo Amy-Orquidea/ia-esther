@@ -1,0 +1,3 @@
+A capital do Brasil é Brasília.
+Java é uma linguagem de programação orientada a objetos.
+Quarkus é um framework Java otimizado para nuvem e contêineres.
