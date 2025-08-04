@@ -10,8 +10,7 @@
 
     <properties>
         <quarkus.platform.version>3.15.1</quarkus.platform.version>
-        <langchain4j.version>0.35.0</langchain4j.version>
-        <quarkus-langchain4j.version>1.1.0</quarkus-langchain4j.version>
+        <quarkus-langchain4j.version>1.2.0</quarkus-langchain4j.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,7 +31,7 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest</artifactId>
+            <artifactId>quarkus-resteasy-reactive</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -47,11 +46,6 @@
             <groupId>io.quarkiverse.langchain4j</groupId>
             <artifactId>quarkus-langchain4j-ollama</artifactId>
             <version>${quarkus-langchain4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j</artifactId>
-            <version>${langchain4j.version}</version>
         </dependency>
     </dependencies>
 

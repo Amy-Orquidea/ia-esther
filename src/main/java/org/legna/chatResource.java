@@ -29,7 +29,7 @@ public class chatResource {
     @POST
     @Path("/chat")
     @Produces(MediaType.TEXT_PLAIN)
-    public String chat(@QueryParam("message") String message) {
+    public String chat(@QueryParam("message") String message) throws IOException {
         return iaService.processMessage(message);
     }
 

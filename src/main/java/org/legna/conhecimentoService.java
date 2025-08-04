@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-
+@ApplicationScoped
 public class conhecimentoService {
     
         private static final String KNOWLEDGE_FILE = "src/main/resources/conhecimento.txt";

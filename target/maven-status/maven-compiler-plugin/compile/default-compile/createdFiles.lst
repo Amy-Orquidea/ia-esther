@@ -1,1 +1,4 @@
+org\legna\conhecimentoService.class
+org\legna\ConversationalAiService.class
 org\legna\chatResource.class
+org\legna\iaService.class

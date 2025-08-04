@@ -1,33 +1,26 @@
 package org.legna;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.service.AiServices;
-import dev.langchain4j.service.SystemMessage;
+import org.legna.ConversationalAiService;
 import jakarta.inject.Inject;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 
-interface ConversationalAI {
-    @SystemMessage("Você é um assistente de IA que responde com base no conhecimento fornecido. Conhecimento: {{knowledge}}")
-    String chat(String userMessage);
-}
-
 @ApplicationScoped
 public class iaService {
-    private final ConversationalAI assistant;
+    
+    @Inject
+    ConversationalAiService conversationalAiService;
 
     @Inject
-    public iaService(ChatLanguageModel chatModel, conhecimentoService conhecimentoService) throws IOException {
-        String knowledge = conhecimentoService.readKnowledge();
+    conhecimentoService conhecimentoService;
 
-        assistant = AiServices.builder(ConversationalAI.class)
-            .chatLanguageModel(chatModel)
-            .systemMessageProvider((memoryId) -> knowledge)
-            .build();
+    public iaService() {
+        // Construtor padrão para CDI
     }
 
-    public String processMessage(String message) {
-        return assistant.chat(message);
+    public String processMessage(String message) throws IOException {
+        String knowledge = conhecimentoService.readKnowledge();
+        return conversationalAiService.chat(message, knowledge);
     }
 
     public void addToKnowledgeBase(String knowledge) throws IOException {
